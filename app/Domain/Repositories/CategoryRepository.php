@@ -18,7 +18,7 @@ class CategoryRepository extends BaseRepository
     public function categories()
     {
         return $this->model()
-            ->newQuery()
+            ->query()
             ->where(
                 CategoryContract::PARENT_ID, null
             )
@@ -28,7 +28,7 @@ class CategoryRepository extends BaseRepository
     public function subcategories($id)
     {
         return $this->model()
-            ->newQuery()
+            ->query()
             ->where(
                 CategoryContract::PARENT_ID, $id
             )

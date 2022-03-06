@@ -13,46 +13,26 @@ class UpdateProductRequest extends FormRequest
      *
      * @return  bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return  Auth::check();     }
+        return  Auth::check();
+    }
 
     /**
      * Get the validation rules that apply to the request.
      *
      * @return  array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-                ProductContract::CATEGORY_ID => [
-                    'integer' =>
-                            'true',
-                            ],
-                ProductContract::TITLE => [
-                    'string' =>
-                            'true',
-                            ],
-                ProductContract::DESCRIPTION => [
-                    'string' =>
-                            'true',
-                            ],
-                ProductContract::PRICE => [
-                    'string' =>
-                            'true',
-                            ],
-                ProductContract::OLD_PRICE => [
-                    'string' =>
-                            'true',
-                            ],
-                ProductContract::IS_HIT => [
-                    'bool' =>
-                            'true',
-                            ],
-                ProductContract::IS_LATEST => [
-                    'bool' =>
-                            'true',
-                            ],
+            ProductContract::CATEGORY_ID => ['integer'],
+            ProductContract::TITLE       => ['string'],
+            ProductContract::DESCRIPTION => ['string'],
+            ProductContract::PRICE       => ['string', 'integer'],
+            ProductContract::OLD_PRICE   => ['string', 'integer'],
+            ProductContract::IS_HIT      => ['boolean'],
+            ProductContract::IS_LATEST   => ['boolean']
         ];
     }
 }

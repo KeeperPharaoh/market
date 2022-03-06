@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\Domain\Contracts\CategoryContract;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @method static inRandomOrder()
+ */
 class Category extends Model
 {
     use HasFactory , SoftDeletes ;
@@ -18,9 +21,9 @@ class Category extends Model
     ];
 
     protected $hidden = [
-            'deleted_at',
-            'created_at',
-            'updated_at'
+            DELETED_AT,
+            CREATED_AT,
+            UPDATED_AT
     ];
 
     protected $perPage = 16;

@@ -16,12 +16,21 @@ class ProductRepository extends BaseRepository
         return new Product();
     }
 
-    public function productsBycategory($id): LengthAwarePaginator
+    public function analogs($id)
     {
         return $this->model()
-             ->newQuery()
+                    ->query()
+                    ->where(ProductContract::CATEGORY_ID, $id)
+                    ->take(5)
+                    ->get();
+    }
+
+    public function productsByCategory($id): LengthAwarePaginator
+    {
+        return $this->model()
+             ->query()
             ->select([
-                'id',
+                ID,
                 ProductContract::CATEGORY_ID,
                 ProductContract::TITLE,
                 ProductContract::DESCRIPTION,
@@ -34,5 +43,13 @@ class ProductRepository extends BaseRepository
                  ProductContract::CATEGORY_ID => $id
              ])
             ->paginate(16);
+    }
+
+    public function getPrice($id)
+    {
+        return $this->model()
+            ->query()
+            ->select(ProductContract::PRICE)
+            ->find($id);
     }
 }

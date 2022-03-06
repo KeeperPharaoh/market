@@ -98,18 +98,8 @@
                 items: [
                                         {
                         icon: 'mdi-apps',
-                        title: 'User',
-                        to: '/user'
-                    },
-                                        {
-                        icon: 'mdi-apps',
-                        title: 'Category',
-                        to: '/category'
-                    },
-                                        {
-                        icon: 'mdi-apps',
-                        title: 'Product',
-                        to: '/product'
+                        title: 'Order',
+                        to: '/order'
                     },
                                     ],
                 miniVariant: false,

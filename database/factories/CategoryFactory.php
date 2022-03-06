@@ -20,10 +20,10 @@ class CategoryFactory extends Factory
      *
      * @return  array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            CategoryContract::PARENT_ID =>  \App\Models\Category::inRandomOrder()->first() ? \App\Models\Category::inRandomOrder()->first()->id : null,
+            CategoryContract::PARENT_ID =>  Category::inRandomOrder()->first() ? Category::inRandomOrder()->first()->id : null,
             CategoryContract::TITLE =>  $this->faker->title(),
             CategoryContract::IMAGE =>  $this->faker->imageUrl(640, 480),
         ];

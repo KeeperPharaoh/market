@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Domain\Contracts\UserContract;
+use Illuminate\Support\Facades\Hash;
 
 class UserFactory extends Factory
 {
@@ -20,7 +21,7 @@ class UserFactory extends Factory
      *
      * @return  array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             UserContract::NAME =>  $this->faker->name(),
@@ -28,7 +29,7 @@ class UserFactory extends Factory
             UserContract::EMAIL =>  $this->faker->email(),
             UserContract::EMAIL_VERIFIED_AT =>  $this->faker->unixTime(),
             UserContract::PHONE =>  $this->faker->phoneNumber,
-            UserContract::PASSWORD =>  \Illuminate\Support\Facades\Hash::make('123456'),
+            UserContract::PASSWORD =>  Hash::make('123456'),
             UserContract::REMEMBER_TOKEN =>  null,
         ];
     }

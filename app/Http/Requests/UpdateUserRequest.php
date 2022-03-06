@@ -13,48 +13,24 @@ class UpdateUserRequest extends FormRequest
      *
      * @return  bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return  Auth::check();     }
+        return  Auth::check();
+    }
 
     /**
      * Get the validation rules that apply to the request.
      *
      * @return  array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-                UserContract::NAME => [
-                    'string' =>
-                            'true',
-                            ],
-                UserContract::SURNAME => [
-                    'string' =>
-                            'true',
-                            ],
-                UserContract::EMAIL => [
-                    'string' =>
-                            'true',
-                                'email' =>
-                            'email:rfc,dns',
-                            ],
-                UserContract::EMAIL_VERIFIED_AT => [
-                ],
-                UserContract::PHONE => [
-                    'string' =>
-                            'true',
-                            ],
-                UserContract::PASSWORD => [
-                    'string' =>
-                            'true',
-                                'password' =>
-             [
-                            'required',
-                            'confirmed',
-                            'Illuminate\Validation\Rules\Password::min(6)',
-                        ],
-                            ],
+                UserContract::NAME    => ['string'],
+                UserContract::SURNAME => ['string'],
+                UserContract::EMAIL   => ['string'],
+                UserContract::PHONE   => ['string'],
+
         ];
     }
 }

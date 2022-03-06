@@ -62,13 +62,11 @@ class RouteServiceProvider extends ServiceProvider
                  ->namespace('App\Http\Controllers\API')
                  ->group(
                      function (){
-                        Route::prefix('admin')
+                        Route::prefix('v1')
                           ->namespace('V1')
                           ->group(
                               function () {
-                                $this->loadRoutesFrom(base_path('routes/api/admin/user.php'));
-                              $this->loadRoutesFrom(base_path('routes/api/admin/category.php'));
-                              $this->loadRoutesFrom(base_path('routes/api/admin/product.php'));
+                                $this->loadRoutesFrom(base_path('routes/api/v1/api.php'));
                               }
                           );
                      }
@@ -78,15 +76,16 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace('App\Http\Controllers\API')
                 ->group(
                     function (){
-                        Route::prefix('v1')
+                        Route::prefix('admin')
                             ->namespace('V1')
                             ->group(
                                 function () {
-                                    $this->loadRoutesFrom(base_path('routes/api/v1/api.php'));
+                                    $this->loadRoutesFrom(base_path('routes/api/admin/admin.php'));
                                 }
                             );
                     }
                 );
+
             Route::middleware('web')
                  ->namespace($this->namespace)
                  ->group(base_path('routes/web.php'));

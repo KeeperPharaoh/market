@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Domain\Contracts\CategoryContract;
 use App\Domain\Repositories\CategoryRepository;
 use App\Http\Resources\CategoryCollection;
 use App\Responses\ApiResponse;
@@ -11,20 +10,18 @@ use Japananimetime\Template\BaseService;
 
 class CategoryService extends BaseService
 {
-    private CategoryRepository $categoryRepository;
-
     /**
      * UserService constructor.
      */
     public function __construct(CategoryRepository $categoryRepository)
     {
         parent::__construct();
-        $this->categoryRepository = $categoryRepository;
+        $this->repository = $categoryRepository;
     }
 
     public function categories(): array
     {
-        $categories = $this->categoryRepository->categories();
+        $categories = $this->repository->categories();
 
         return ApiResponse::success(
             new CategoryCollection($categories),
@@ -34,7 +31,7 @@ class CategoryService extends BaseService
 
     public function subcategories($id): array
     {
-        $categories = $this->categoryRepository->subcategories($id);
+        $categories = $this->repository->subcategories($id);
         return ApiResponse::success(
             new CategoryCollection($categories),
             Response::HTTP_OK

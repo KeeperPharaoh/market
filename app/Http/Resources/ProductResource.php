@@ -3,17 +3,29 @@
 namespace App\Http\Resources;
 
 use App\Domain\Contracts\ProductContract;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property int $id
+ * @property mixed $category_id
+ * @property mixed $title
+ * @property mixed $description
+ * @property mixed $price
+ * @property mixed $old_price
+ * @property mixed $is_hit
+ * @property mixed $is_latest
+ */
 class ProductResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @param  Request  $request
+     * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'id'                         => $this->id,

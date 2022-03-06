@@ -54,13 +54,14 @@ class AuthService extends BaseService
         }
     }
 
+    /** @noinspection PhpUndefinedFieldInspection */
     public function login($attributes): array
     {
         $email    = $attributes['email'];
         $password = $attributes['password'];
         if (Auth::attempt([UserContract::EMAIL => $email, UserContract::PASSWORD => $password])) {
             $user    = Auth::user();
-            $success = array('token' => $user->createToken('market')->plainTextToken);
+            $success = ['token' => $user->createToken('market')->plainTextToken];
             $success['user'] = [
                 UserContract::NAME  => $user->name,
                 UserContract::EMAIL => $user->email
@@ -77,10 +78,11 @@ class AuthService extends BaseService
         );
     }
 
+    /** @noinspection PhpUndefinedFieldInspection */
     public function logout(): array
     {
         try {
-            Auth::user()->tokens->each(function ($token, $key) {
+            Auth::user()->tokens->each(function ($token) {
                 $token->delete();
             });
 

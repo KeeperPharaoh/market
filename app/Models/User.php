@@ -11,6 +11,9 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticateContract;
 
+/**
+ * @method static inRandomOrder()
+ */
 class User extends Model implements AuthenticateContract
 {
     use HasFactory , SoftDeletes, HasApiTokens, Notifiable;

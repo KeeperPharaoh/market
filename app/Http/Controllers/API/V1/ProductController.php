@@ -3,12 +3,9 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ProductResource;
 use App\QueryFilters\ProductFilter;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use App\Services\ProductService;
-use App\Http\Requests\GetProductRequest;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Http\Response;
@@ -23,26 +20,22 @@ class ProductController extends Controller
     }
 
     /**
-    * Display a listing of the resource.
-    *
-    * @param  \App\Http\Requests\GetProductRequest $request
-    *
-    * @return  Response
-    */
-    public function index(GetProductRequest $request): Response
+     * Display a listing of the resource.
+     *
+     * @return  Response
+     */
+    public function index(): Response
     {
         $result = $this->productService->all();
         return response($result[0], $result[1]);
     }
 
     /**
-    * Display paginated listing of the resource.
-    *
-    * @param  \App\Http\Requests\GetProductRequest $request
-    *
-    * @return    Response
-    */
-    public function paginate(GetProductRequest $request): Response
+     * Display paginated listing of the resource.
+     *
+     * @return    Response
+     */
+    public function paginate(): Response
     {
         $result = $this->productService->paginate();
         return response($result[0], $result[1]);
@@ -51,25 +44,24 @@ class ProductController extends Controller
     /**
     * Store a newly created resource in storage.
     *
-    * @param  \App\Http\Requests\CreateProductRequest $request
+    * @param CreateProductRequest $request
     *
     * @return    Response
     */
     public function store(CreateProductRequest $request): Response
     {
-        $result = $this->productService->create();
+        $result = $this->productService->create($request->validated());
         return response($result[0], $result[1]);
     }
 
     /**
-    * Display the specified resource.
-    *
-    * @param  \App\Http\Requests\GetProductRequest $request
-    * @param  int                               $id
-    *
-    * @return    Response
-    */
-    public function show(GetProductRequest $request, int $id): Response
+     * Display the specified resource.
+     *
+     * @param int $id
+     *
+     * @return    Response
+     */
+    public function show(int $id): Response
     {
         $result = $this->productService->show($id);
         return response($result[0], $result[1]);
@@ -85,7 +77,7 @@ class ProductController extends Controller
     */
     public function update(UpdateProductRequest $request, int $id): Response
     {
-        $result = $this->productService->update($id);
+        $result = $this->productService->update($request->validated(),$id);
         return response($result[0], $result[1]);
     }
 
@@ -102,6 +94,11 @@ class ProductController extends Controller
         return response($result[0], $result[1]);
     }
 
+    public function showProductWithAnalogs(int $id): JsonResponse
+    {
+        $result = $this->productService->showProductWithAnalogs($id);
+        return response()->json($result['message'], $result['code']);
+    }
     public function products()
     {
         $result = $this->productService->paginate(

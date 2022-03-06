@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use App\Services\CategoryService;
 use App\Http\Requests\GetCategoryRequest;
 use App\Http\Requests\CreateCategoryRequest;
@@ -23,51 +22,50 @@ class CategoryController extends Controller
     /**
     * Display a listing of the resource.
     *
-    * @param  \App\Http\Requests\GetCategoryRequest $request
+    * @param GetCategoryRequest $request
     *
-    * @return  Response
+    * @return Response
     */
     public function index(GetCategoryRequest $request): Response
     {
-        $result = $this->categoryService->all();
+        $result = $this->categoryService->all($request->validated());
         return response($result[0], $result[1]);
     }
 
     /**
     * Display paginated listing of the resource.
     *
-    * @param  \App\Http\Requests\GetCategoryRequest $request
+    * @param GetCategoryRequest $request
     *
-    * @return    Response
+    * @return Response
     */
     public function paginate(GetCategoryRequest $request): Response
     {
-        $result = $this->categoryService->paginate();
+        $result = $this->categoryService->paginate($request->validated());
         return response($result[0], $result[1]);
     }
 
     /**
     * Store a newly created resource in storage.
     *
-    * @param  \App\Http\Requests\CreateCategoryRequest $request
+    * @param CreateCategoryRequest $request
     *
-    * @return    Response
+    * @return Response
     */
     public function store(CreateCategoryRequest $request): Response
     {
-        $result = $this->categoryService->create();
+        $result = $this->categoryService->create($request->validated());
         return response($result[0], $result[1]);
     }
 
     /**
-    * Display the specified resource.
-    *
-    * @param  \App\Http\Requests\GetCategoryRequest $request
-    * @param  int                               $id
-    *
-    * @return    Response
-    */
-    public function show(GetCategoryRequest $request, int $id): Response
+     * Display the specified resource.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function show(int $id): Response
     {
         $result = $this->categoryService->show($id);
         return response($result[0], $result[1]);
@@ -76,14 +74,14 @@ class CategoryController extends Controller
     /**
     * Update the specified resource in storage.
     *
-    * @param  \App\Http\Requests\UpdateCategoryRequest $request
-    * @param  int                                  $id
+    * @param UpdateCategoryRequest $request
+    * @param  int $id
     *
     * @return    Response
     */
     public function update(UpdateCategoryRequest $request, int $id): Response
     {
-        $result = $this->categoryService->update($id);
+        $result = $this->categoryService->update($request->validated(),$id);
         return response($result[0], $result[1]);
     }
 

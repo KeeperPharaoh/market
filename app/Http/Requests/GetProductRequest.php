@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Domain\Contracts\ProductContract;
-use Illuminate\Support\Facades\Auth;
 
 class GetProductRequest extends FormRequest
 {
@@ -13,16 +12,17 @@ class GetProductRequest extends FormRequest
      *
      * @return  bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return  true;     }
+        return  true;
+    }
 
     /**
      * Get the validation rules that apply to the request.
      *
      * @return  array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
                 ProductContract::CATEGORY_ID => [

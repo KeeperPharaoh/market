@@ -12,7 +12,7 @@ class ProductFilter
      * @param $next
      * @return mixed
      */
-    public function handle(Builder $query, $next): mixed
+    public function handle(Builder $query, $next)
     {
         if(request()->has('new')){
             $query->where(ProductContract::IS_LATEST, true);

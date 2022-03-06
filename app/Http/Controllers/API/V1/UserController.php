@@ -3,86 +3,98 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\ChangePasswordRequest;
+use App\Services\OrderService;
+use Illuminate\Http\JsonResponse;
 use App\Services\UserService;
 use App\Http\Requests\GetUserRequest;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public UserService $UserService;
+    public UserService  $userService;
+    public OrderService $orderService;
 
-    public function __construct(UserService $UserService)
+    public function __construct(
+        UserService  $userService,
+        OrderService $orderService
+    )
     {
-        $this->UserService = $UserService;
+        $this->userService  = $userService;
+        $this->orderService = $orderService;
     }
 
     /**
     * Display a listing of the resource.
     *
-    * @param  \App\Http\Requests\GetUserRequest $request
+    * @param GetUserRequest $request
     *
-    * @return  \Illuminate\Http\Response
+    * @return  Response
     */
-    public function index(GetUserRequest $request): \Illuminate\Http\Response
+    public function index(GetUserRequest $request): Response
     {
-        $result = $this->UserService->all();
+        $result = $this->userService->all($request);
         return response($result[0], $result[1]);
     }
 
     /**
     * Display paginated listing of the resource.
     *
-    * @param  \App\Http\Requests\GetUserRequest $request
+    * @param GetUserRequest $request
     *
-    * @return    \Illuminate\Http\Response
+    * @return    Response
     */
-    public function paginate(GetUserRequest $request): \Illuminate\Http\Response
+    public function paginate(GetUserRequest $request): Response
     {
-        $result = $this->UserService->paginate();
+        $result = $this->userService->paginate($request);
         return response($result[0], $result[1]);
     }
 
     /**
     * Store a newly created resource in storage.
     *
-    * @param  \App\Http\Requests\CreateUserRequest $request
+    * @param CreateUserRequest $request
     *
-    * @return    \Illuminate\Http\Response
+    * @return    Response
     */
-    public function store(CreateUserRequest $request): \Illuminate\Http\Response
+    public function store(CreateUserRequest $request): Response
     {
-        $result = $this->UserService->create();
+        $result = $this->userService->create($request->validated());
         return response($result[0], $result[1]);
     }
 
     /**
-    * Display the specified resource.
-    *
-    * @param  \App\Http\Requests\GetUserRequest $request
-    * @param  int                               $id
-    *
-    * @return    \Illuminate\Http\Response
-    */
-    public function show(GetUserRequest $request, int $id): \Illuminate\Http\Response
+     * Display the specified resource.
+     *
+     * @param int $id
+     *
+     * @return    Response
+     */
+    public function show(int $id): Response
     {
-        $result = $this->UserService->show($id);
+        $result = $this->userService->show($id);
         return response($result[0], $result[1]);
     }
 
     /**
     * Update the specified resource in storage.
     *
-    * @param  \App\Http\Requests\UpdateUserRequest $request
-    * @param  int                                  $id
+    * @param UpdateUserRequest $request
     *
-    * @return    \Illuminate\Http\Response
+    *
+    * @return    Response
     */
-    public function update(UpdateUserRequest $request, int $id): \Illuminate\Http\Response
+    public function update(UpdateUserRequest $request): Response
     {
-        $result = $this->UserService->update($id);
-        return response($result[0], $result[1]);
+        $id = Auth::id();
+        $result = $this->userService->update($request->validated(), $id);
+        return response([
+            'status'  => true,
+            'message' => OPERATION_SUCCESSFUL
+        ], $result[1]);
     }
 
     /**
@@ -90,11 +102,32 @@ class UserController extends Controller
     *
     * @param  int $id
     *
-    * @return    \Illuminate\Http\Response
+    * @return    Response
     */
-    public function destroy(int $id): \Illuminate\Http\Response
+    public function destroy(int $id): Response
     {
-        $result = $this->UserService->delete($id);
+        $result = $this->userService->delete($id);
         return response($result[0], $result[1]);
+    }
+
+    public function getUser()
+    {
+        $result = $this->userService->show(Auth::id());
+        return response([
+            'status'  => true,
+            'data' => $result[0]
+        ], $result[1]);
+    }
+
+    public function changePassword(ChangePasswordRequest $request): JsonResponse
+    {
+        $result = $this->userService->changePassword($request->validated());
+        return response()->json($result['message'], $result['code']);
+    }
+
+    public function history(): JsonResponse
+    {
+        $result  = $this->orderService->history();
+        return response()->json($result['message'], $result['code']);
     }
 }

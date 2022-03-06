@@ -13,30 +13,22 @@ class UpdateCategoryRequest extends FormRequest
      *
      * @return  bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return  Auth::check();     }
+        return  Auth::check();
+    }
 
     /**
      * Get the validation rules that apply to the request.
      *
      * @return  array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-                CategoryContract::PARENT_ID => [
-                    'integer' =>
-                            'true',
-                            ],
-                CategoryContract::TITLE => [
-                    'string' =>
-                            'true',
-                            ],
-                CategoryContract::IMAGE => [
-                    'string' =>
-                            'true',
-                            ],
+            CategoryContract::PARENT_ID => ['integer'],
+            CategoryContract::TITLE     => ['string'],
+            CategoryContract::IMAGE     => [''],
         ];
     }
 }

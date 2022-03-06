@@ -1,6 +1,6 @@
 export const state = () => ({
-    data: 'http://localhost/api/v1/admin/',
-    storage: 'http://localhost/storage/'
+    data: 'http://127.0.0.1:8001/api/v1/admin/',
+    storage: 'http://127.0.0.1:8001/storage/'
 })
 
 export const getters = {
