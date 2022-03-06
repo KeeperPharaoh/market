@@ -1,273 +1,107 @@
 <?php
 
 return [
-    'user'      => [
-        'fields'      => [
-            'name'              => [
-                'type'       => 'string',
-                'nullable'   => false,
-                'unique'     => false,
-                'fillable'   => true,
-                'faker'      => [true, 'name()'],
-                'validation' => [
-                    'create' => [
-                        'string'   => 'true',
-                        'required' => 'true',
-                    ],
-                    'update' => [
-                        'string' => 'true',
-                    ],
-                    'get'    => [
-
-                    ],
-                ],
-            ],
-            'surname'              => [
-                'type'       => 'string',
-                'nullable'   => false,
-                'unique'     => false,
-                'fillable'   => true,
-                'faker'      => [true, 'name()'],
-                'validation' => [
-                    'create' => [
-                        'string'   => 'true',
-                        'required' => 'true',
-                    ],
-                    'update' => [
-                        'string' => 'true',
-                    ],
-                    'get'    => [
-
-                    ],
-                ],
-            ],
-            'email'             => [
-                'type'       => 'string',
-                'nullable'   => false,
-                'unique'     => true,
-                'fillable'   => true,
-                'faker'      => [true, 'email()'],
-                'validation' => [
-                    'create' => [
-                        'string'   => 'true',
-                        'email'    => 'email:rfc,dns',
-                        'required' => 'true',
-                    ],
-                    'update' => [
-                        'string' => 'true',
-                        'email'  => 'email:rfc,dns',
-                    ],
-                    'get'    => [
-
-                    ],
-                ],
-            ],
-            'email_verified_at' => [
-                'type'       => 'string',
-                'nullable'   => true,
-                'unique'     => false,
-                'fillable'   => true,
-                'faker'      => [true, 'unixTime()'],
-                'validation' => [
-                    'create' => [
-
-                    ],
-                    'update' => [
-
-                    ],
-                    'get'    => [
-
-                    ],
-                ],
-            ],
-            'phone'             => [
-                'type'       => 'string',
-                'nullable'   => false,
-                'unique'     => true,
-                'fillable'   => true,
-                'faker'      => [true, 'phoneNumber'],
-                'validation' => [
-                    'create' => [
-                        'string'   => 'true',
-                        'required' => 'true',
-                    ],
-                    'update' => [
-                        'string' => 'true',
-                    ],
-                    'get'    => [
-
-                    ],
-                ],
-            ],
-            'password'          => [
-                'type'       => 'string',
-                'nullable'   => true,
-                'unique'     => false,
-                'fillable'   => true,
-                'faker'      => [false, '\\Illuminate\\Support\\Facades\\Hash::make(\'123456\')'],
-                'validation' => [
-                    'create' => [
-                        'string'   => 'true',
-                        'password' => ['required', 'confirmed', 'Illuminate\Validation\Rules\Password::min(6)'],
-                        'required' => 'true',
-                    ],
-                    'update' => [
-                        'string'   => 'true',
-                        'password' => ['required', 'confirmed', 'Illuminate\Validation\Rules\Password::min(6)'],
-                    ],
-                    'get'    => [
-
-                    ],
-                ],
-            ],
-            'remember_token'    => [
-                'type'       => 'string',
-                'nullable'   => true,
-                'unique'     => false,
-                'fillable'   => false,
-                'faker'      => [false, 'null'],
-                'validation' => [
-                    'create' => [
-
-                    ],
-                    'update' => [
-
-                    ],
-                    'get'    => [
-
-                    ],
-                ],
-            ],
-        ],
-        'requests'    => [
-            'create' => [
-                'auth' => true,
-            ],
-            'update' => [
-                'auth' => true,
-            ],
-            'get'    => [
-                'auth' => false,
-            ],
-        ],
-        'softDeletes' => true,
-        'pageLength'  => 16,
-    ],
-    'category'  => [
+    'order' => [
         'fields' => [
-            'parent_id' => [
-                'type'       => 'unsignedBigInteger',
-                'nullable'   => true,
-                'unique'     => false,
-                'fillable'   => true,
-                'faker'      => [false, '\\App\\Models\\Category::inRandomOrder()->first() ? \\App\\Models\\Category::inRandomOrder()->first()->id : null'],
+            'user_id'        => [
+                'type' => 'unsignedBigInteger',
+                'nullable' => true,
+                'unique' => false,
+                'fillable' => true,
+                'faker' => [true, '\\App\\Models\\User::inRandomOrder()->first() ? \\App\\Models\\User::inRandomOrder()->first()->id : null'],
                 'validation' => [
                     'create' => [
-                        'integer'   => 'true',
+                        'integer' => 'true'
                     ],
                     'update' => [
-                        'integer' => 'true',
+                        'string' => 'true',
                     ],
-                    'get'    => [
+                    'get' => [
 
                     ],
                 ],
             ],
-            'title' => [
-                'type'       => 'string',
-                'nullable'   => false,
-                'unique'     => false,
-                'fillable'   => true,
-                'faker'      => [true, 'title()'],
+            'name'           => [
+                'type' => 'string',
+                'nullable' => false,
+                'unique' => false,
+                'fillable' => true,
+                'faker' => [true, 'name()'],
                 'validation' => [
                     'create' => [
-                        'string'   => 'true',
+                        'string' => 'true',
                         'required' => 'true',
                     ],
                     'update' => [
                         'string' => 'true',
                     ],
-                    'get'    => [
+                    'get' => [
 
                     ],
                 ],
             ],
-            'image' => [
-                'type'       => 'string',
-                'nullable'   => false,
-                'unique'     => false,
-                'fillable'   => true,
-                'faker'      => [true, 'imageUrl(640, 480)'],
+            'surname'        => [
+                'type' => 'string',
+                'nullable' => false,
+                'unique' => false,
+                'fillable' => true,
+                'faker' => [true, 'name()'],
                 'validation' => [
                     'create' => [
-                        'string'   => 'true',
+                        'string' => 'true',
                         'required' => 'true',
                     ],
                     'update' => [
                         'string' => 'true',
                     ],
-                    'get'    => [
+                    'get' => [
 
                     ],
                 ],
             ],
-        ],
-        'requests'    => [
-            'create' => [
-                'auth' => true,
-            ],
-            'update' => [
-                'auth' => true,
-            ],
-            'get'    => [
-                'auth' => false,
-            ],
-        ],
-        'softDeletes' => true,
-        'pageLength'  => 16,
-    ],
-    'product'   => [
-        'fields' => [
-            'category_id' => [
-                'type'       => 'unsignedBigInteger',
-                'nullable'   => true,
-                'unique'     => false,
-                'fillable'   => true,
-                'faker'      => [false, '\\App\\Models\\Category::inRandomOrder()->first() ? \\App\\Models\\Category::inRandomOrder()->first()->id : null'],
+            'email'          => [
+                'type' => 'string',
+                'nullable' => false,
+                'unique' => true,
+                'fillable' => true,
+                'faker' => [true, 'email()'],
                 'validation' => [
                     'create' => [
-                        'integer'   => 'true',
+                        'string' => 'true',
+                        'email' => 'email:rfc,dns',
+                        'required' => 'true',
                     ],
                     'update' => [
-                        'integer' => 'true',
+                        'string' => 'true',
+                        'email' => 'email:rfc,dns',
                     ],
-                    'get'    => [
+                    'get' => [
 
                     ],
                 ],
             ],
-            'title' => [
-                'type'       => 'string',
-                'nullable'   => false,
-                'unique'     => false,
-                'fillable'   => true,
-                'faker'      => [true, 'title()'],
+            'phone'          => [
+                'type' => 'string',
+                'nullable' => false,
+                'unique' => true,
+                'fillable' => true,
+                'faker' => [true, 'phoneNumber'],
                 'validation' => [
                     'create' => [
-                        'string'   => 'true',
+                        'string' => 'true',
                         'required' => 'true',
                     ],
                     'update' => [
                         'string' => 'true',
                     ],
-                    'get'    => [
+                    'get' => [
 
                     ],
                 ],
             ],
-            'description'  => [
+            'comment'        => [
                 'type'       => 'text',
-                'nullable'   => false,
+                'nullable'   => true,
                 'unique'     => false,
                 'fillable'   => true,
                 'faker'      => [true, 'text'],
@@ -284,7 +118,177 @@ return [
                     ],
                 ],
             ],
-            'price' => [
+            'street'         => [
+                'type' => 'string',
+                'nullable' => true,
+                'unique' => false,
+                'fillable' => true,
+                'faker' => [true, 'name()'],
+                'validation' => [
+                    'create' => [
+                        'string' => 'true',
+                        'required' => 'true',
+                    ],
+                    'update' => [
+                        'string' => 'true',
+                    ],
+                    'get' => [
+
+                    ],
+                ],
+            ],
+            'home'           => [
+                'type' => 'string',
+                'nullable' => false,
+                'unique' => true,
+                'fillable' => true,
+                'faker' => [true, 'name()'],
+                'validation' => [
+                    'create' => [
+                        'string' => 'true',
+                        'required' => 'true',
+                    ],
+                    'update' => [
+                        'string' => 'true',
+                    ],
+                    'get' => [
+
+                    ],
+                ],
+            ],
+            'apartment'      => [
+                'type' => 'string',
+                'nullable' => true,
+                'unique' => false,
+                'fillable' => true,
+                'faker' => [true, 'name()'],
+                'validation' => [
+                    'create' => [
+                        'string' => 'true',
+                        'required' => 'true',
+                    ],
+                    'update' => [
+                        'string' => 'true',
+                    ],
+                    'get' => [
+
+                    ],
+                ],
+            ],
+            'entrance'       => [
+                'type' => 'string',
+                'nullable' => true,
+                'unique' => false,
+                'fillable' => true,
+                'faker' => [true, 'name()'],
+                'validation' => [
+                    'create' => [
+                        'string' => 'true',
+                        'required' => 'true',
+                    ],
+                    'update' => [
+                        'string' => 'true',
+                    ],
+                    'get' => [
+
+                    ],
+                ],
+            ],
+            'floor'          => [
+                'type' => 'string',
+                'nullable' => true,
+                'unique' => false,
+                'fillable' => true,
+                'faker' => [true, 'name()'],
+                'validation' => [
+                    'create' => [
+                        'string' => 'true',
+                        'required' => 'true',
+                    ],
+                    'update' => [
+                        'string' => 'true',
+                    ],
+                    'get' => [
+
+                    ],
+                ],
+            ],
+            'office'         => [
+                'type' => 'unsignedBigInteger',
+                'nullable' => true,
+                'unique' => false,
+                'fillable' => true,
+                'faker' => [true, '\\App\\Models\\PickupOffice::inRandomOrder()->first() ? \\App\\Models\\PickupOffice::inRandomOrder()->first()->id : null'],
+                'validation' => [
+                    'create' => [
+                        'integer' => 'true'
+                    ],
+                    'update' => [
+                        'string' => 'true',
+                    ],
+                    'get' => [
+
+                    ],
+                ],
+            ],
+            'status'         => [
+                'type' => 'string',
+                'nullable' => true,
+                'unique' => false,
+                'fillable' => true,
+                'faker' => [true, 'name()'],
+                'validation' => [
+                    'create' => [
+                        'string' => 'true',
+                        'required' => 'true',
+                    ],
+                    'update' => [
+                        'string' => 'true',
+                    ],
+                    'get' => [
+
+                    ],
+                ],
+            ],
+            'payment_id'     => [
+                'type' => 'string',
+                'nullable' => true,
+                'unique' => false,
+                'fillable' => true,
+                'faker' => [true, 'name()'],
+                'validation' => [
+                    'create' => [
+                        'string' => 'true',
+                        'required' => 'true',
+                    ],
+                    'update' => [
+                        'string' => 'true',
+                    ],
+                    'get' => [
+
+                    ],
+                ],
+            ],
+            'payment_status' => [
+                'type' => 'string',
+                'nullable' => true,
+                'unique' => false,
+                'fillable' => true,
+                'faker' => [true, 'name()'],
+                'validation' => [
+                    'create' => [
+                        'string' => 'true',
+                        'required' => 'true',
+                    ],
+                    'update' => [
+                        'string' => 'true',
+                    ],
+                    'get' => [
+
+                    ],
+                ],
+            ],
+            'sum'            => [
                 'type'      =>  'integer',
                 'nullable'  =>  false,
                 'unique'     => false,
@@ -297,63 +301,6 @@ return [
                     ],
                     'update' => [
                         'string' => 'true',
-                    ],
-                    'get'    => [
-
-                    ],
-                ],
-            ],
-            'old_price' => [
-                'type'      =>  'integer',
-                'nullable'  =>  false,
-                'unique'     => false,
-                'fillable'   => true,
-                'faker'      => [false, 'integer'],
-                'validation' => [
-                    'create' => [
-                        'string'   => 'true',
-                        'required' => 'true',
-                    ],
-                    'update' => [
-                        'string' => 'true',
-                    ],
-                    'get'    => [
-
-                    ],
-                ],
-            ],
-            'is_hit' => [
-                'type'      =>  'bool',
-                'nullable'  =>  false,
-                'unique'     => false,
-                'fillable'   => true,
-                'faker'      => [true, '1'],
-                'validation' => [
-                    'create' => [
-                        'string'   => 'true',
-                        'required' => 'true',
-                    ],
-                    'update' => [
-                        'bool' => 'true',
-                    ],
-                    'get'    => [
-
-                    ],
-                ],
-            ],
-            'is_latest' => [
-                'type'      =>  'bool',
-                'nullable'  =>  false,
-                'unique'     => false,
-                'fillable'   => true,
-                'faker'      => [true, '1'],
-                'validation' => [
-                    'create' => [
-                        'string'   => 'true',
-                        'required' => 'true',
-                    ],
-                    'update' => [
-                        'bool' => 'true',
                     ],
                     'get'    => [
 
@@ -361,19 +308,19 @@ return [
                 ],
             ]
         ],
-        'requests'    => [
+        'requests' => [
             'create' => [
                 'auth' => true,
             ],
             'update' => [
                 'auth' => true,
             ],
-            'get'    => [
+            'get' => [
                 'auth' => false,
             ],
         ],
         'softDeletes' => true,
-        'pageLength'  => 16,
-    ],
+        'pageLength' => 16,
+    ]
 ];
 
