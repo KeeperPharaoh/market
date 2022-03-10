@@ -9,6 +9,7 @@ interface ProductContract
 
     public const CATEGORY_ID = 'category_id';
     public const TITLE       = 'title';
+    public const IMAGES      = 'images';
     public const DESCRIPTION = 'description';
     public const PRICE       = 'price';
     public const OLD_PRICE   = 'old_price';

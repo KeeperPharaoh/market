@@ -54,7 +54,9 @@ class CategoryController extends Controller
     */
     public function store(CreateCategoryRequest $request): Response
     {
-        $result = $this->categoryService->create($request->validated());
+        $request = $request->validated();
+        $request['image']   = imageBase64Upload($request['image'][0], CATEGORIES);
+        $result = $this->categoryService->create($request);
         return response($result[0], $result[1]);
     }
 

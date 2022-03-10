@@ -16,6 +16,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $old_price
  * @property mixed $is_hit
  * @property mixed $is_latest
+ * @property mixed $images
  */
 class ProductResource extends JsonResource
 {
@@ -27,10 +28,16 @@ class ProductResource extends JsonResource
      */
     public function toArray($request): array
     {
+        $images = json_decode($this->images);
+
+        for ($i =0; $i < count($images); $i++) {
+            $images[$i] = env('APP_URL') . '/storage/' . $images[$i];
+        }
         return [
             'id'                         => $this->id,
             ProductContract::CATEGORY_ID => $this->category_id,
             ProductContract::TITLE       => $this->title,
+            ProductContract::IMAGES      => $images,
             ProductContract::DESCRIPTION => $this->description,
             ProductContract::PRICE       => $this->price,
             ProductContract::OLD_PRICE   => $this->old_price,

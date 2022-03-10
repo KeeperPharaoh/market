@@ -119,9 +119,4 @@ class OrderController extends Controller
 
         return response()->json($result['message'], $result['code']);
     }
-
-    public function test()
-    {
-        dd(1);
-    }
 }

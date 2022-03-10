@@ -19,6 +19,7 @@ class Product extends Model
             ProductContract::OLD_PRICE,
             ProductContract::IS_HIT,
             ProductContract::IS_LATEST,
+            ProductContract::IMAGES
     ];
 
     protected $hidden = [

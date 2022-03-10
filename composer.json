@@ -15,7 +15,8 @@
         "japananimetime/template": "dev-main",
         "laravel/framework": "^8.12",
         "laravel/sanctum": "^2.14",
-        "laravel/tinker": "^2.5"
+        "laravel/tinker": "^2.5",
+      "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -41,7 +42,8 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files" : [
-            "app/Constants/global.php"
+            "app/Constants/global.php",
+            "app/Http/helpers.php"
         ]
     },
     "autoload-dev": {

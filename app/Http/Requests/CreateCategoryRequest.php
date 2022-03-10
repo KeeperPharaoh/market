@@ -26,7 +26,7 @@ class CreateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-                CategoryContract::PARENT_ID => ['integer'],
+                CategoryContract::PARENT_ID => ['integer', 'nullable'],
                 CategoryContract::TITLE     => ['string', 'required'],
                 CategoryContract::IMAGE     => ['required'],
         ];

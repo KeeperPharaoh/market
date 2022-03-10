@@ -25,23 +25,22 @@ Route::prefix('auth')
         Route::get('logout', [AuthController::class, 'logout'])
             ->middleware('auth:sanctum');
     });
-
+//Пользователь
 Route::prefix('user')
     ->middleware('auth:sanctum')
     ->group(function () {
-        Route::get('', [UserController::class, 'getUser']);
-        Route::put('', [UserController::class, 'update']);
+        Route::get('', [UserController::class, 'getAuthUser']);
+        Route::put('', [UserController::class, 'updateAuthUser']);
         Route::post('change-password', [UserController::class, 'changePassword']);
         Route::get('history', [UserController::class, 'history']);
     });
-
+//Категории и продукты
 Route::prefix('categories')->group(function () {
     Route::get('', [CategoryController::class, 'categories']);
     Route::get('{id}/subcategories',[CategoryController::class, 'subcategories']);
 });
 
 Route::get('category/{id}', [ProductController::class, 'productsByCategory']);
-
 Route::get('product/{id}', [ProductController::class, 'showProductWithAnalogs']);
 Route::get('product', [ProductController::class, 'products']);
 
@@ -54,6 +53,8 @@ Route::prefix('favorite')
         Route::delete('/{id}', [FavoriteController::class, 'delete']);
     });
 
+//Показать корзину
+Route::get('cart', [ProductController::class, 'getCart']);
 //Получить офисы самовывоза
 Route::get('/pickup-offices', [OrderController::class, 'pickupOffices']);
 

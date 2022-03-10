@@ -38,25 +38,25 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::namespace('App\Http\Controllers\API\Dev')
-                ->group(
-                    function() {
-                        Route::prefix('dev')
-                            ->group(
-                                function () {
-                                        Route::get('faker', function () {
-                                            $class = new Reader(Faker\Generator::class);
-                                            $properties = $class->getParameters()['property'];
-                                            $arr = [];
-                                            foreach ($properties as $property) {
-                                            $arr[] = explode('$', $property)[1];
-                                        }
-                                        return response($arr, Response::HTTP_OK);
-                                    });
-                                }
-                            );
-                    }
-                );
+//            Route::namespace('App\Http\Controllers\API\Dev')
+//                ->group(
+//                    function() {
+//                        Route::prefix('dev')
+//                            ->group(
+//                                function () {
+//                                        Route::get('faker', function () {
+//                                            $class = new Reader(Faker\Generator::class);
+//                                            $properties = $class->getParameters()['property'];
+//                                            $arr = [];
+//                                            foreach ($properties as $property) {
+//                                            $arr[] = explode('$', $property)[1];
+//                                        }
+//                                        return response($arr, Response::HTTP_OK);
+//                                    });
+//                                }
+//                            );
+//                    }
+//                );
             Route::prefix('api')
                  ->middleware('api')
                  ->namespace('App\Http\Controllers\API')

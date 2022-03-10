@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CartRequest;
+use App\Http\Resources\ProductCollection;
+use App\Http\Resources\ProductResource;
+use App\Models\Product;
 use App\QueryFilters\ProductFilter;
 use Illuminate\Http\JsonResponse;
 use App\Services\ProductService;
@@ -27,7 +31,7 @@ class ProductController extends Controller
     public function index(): Response
     {
         $result = $this->productService->all();
-        return response($result[0], $result[1]);
+        return response(new ProductCollection($result[0]), $result[1]);
     }
 
     /**
@@ -38,7 +42,7 @@ class ProductController extends Controller
     public function paginate(): Response
     {
         $result = $this->productService->paginate();
-        return response($result[0], $result[1]);
+        return response(new ProductCollection($result[0]), $result[1]);
     }
 
     /**
@@ -50,7 +54,14 @@ class ProductController extends Controller
     */
     public function store(CreateProductRequest $request): Response
     {
-        $result = $this->productService->create($request->validated());
+        $request = $request->validated();
+        $images  = $request['images'];
+        $names   = [];
+        foreach ($images as $image) {
+            $names[] = imageBase64Upload($image, PRODUCTS);
+        }
+        $request['images']  = json_encode($names);
+        $result = $this->productService->create($request);
         return response($result[0], $result[1]);
     }
 
@@ -64,7 +75,7 @@ class ProductController extends Controller
     public function show(int $id): Response
     {
         $result = $this->productService->show($id);
-        return response($result[0], $result[1]);
+        return response(new ProductResource($result[0]), $result[1]);
     }
 
     /**
@@ -94,6 +105,11 @@ class ProductController extends Controller
         return response($result[0], $result[1]);
     }
 
+    public function getCart(CartRequest $request): JsonResponse
+    {
+        $result = $this->productService->getCart($request->validated());
+        return response()->json($result['message'], $result['code']);
+    }
     public function showProductWithAnalogs(int $id): JsonResponse
     {
         $result = $this->productService->showProductWithAnalogs($id);
@@ -104,7 +120,7 @@ class ProductController extends Controller
         $result = $this->productService->paginate(
             ProductFilter::class
         );
-        return response($result[0], $result[1]);
+        return response(new ProductCollection($result[0]), $result[1]);
     }
 
     public function productsByCategory(int $id): JsonResponse

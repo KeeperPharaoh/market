@@ -26,46 +26,12 @@ class CreateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-                UserContract::NAME => [
-                    'string' =>
-                            'true',
-                                'required' =>
-                            'true',
-                            ],
-                UserContract::SURNAME => [
-                    'string' =>
-                            'true',
-                                'required' =>
-                            'true',
-                            ],
-                UserContract::EMAIL => [
-                    'string' =>
-                            'true',
-                                'email' =>
-                            'email:rfc,dns',
-                                'required' =>
-                            'true',
-                            ],
-                UserContract::EMAIL_VERIFIED_AT => [
-                ],
-                UserContract::PHONE => [
-                    'string' =>
-                            'true',
-                                'required' =>
-                            'true',
-                            ],
-                UserContract::PASSWORD => [
-                    'string' =>
-                            'true',
-                                'password' =>
-             [
-                            'required',
-                            'confirmed',
-                            'Illuminate\Validation\Rules\Password::min(6)',
-                        ],
-                                'required' =>
-                            'true',
-                            ],
+                UserContract::NAME => ['string'],
+                UserContract::SURNAME => ['string'],
+                UserContract::EMAIL => ['string','email'],
+                UserContract::EMAIL_VERIFIED_AT => [],
+                UserContract::PHONE => ['string'],
+                UserContract::PASSWORD => ['string'],
         ];
     }
 }

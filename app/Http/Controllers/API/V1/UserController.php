@@ -36,7 +36,7 @@ class UserController extends Controller
     */
     public function index(GetUserRequest $request): Response
     {
-        $result = $this->userService->all($request);
+        $result = $this->userService->all($request->validated());
         return response($result[0], $result[1]);
     }
 
@@ -49,7 +49,7 @@ class UserController extends Controller
     */
     public function paginate(GetUserRequest $request): Response
     {
-        $result = $this->userService->paginate($request);
+        $result = $this->userService->paginate($request->validated());
         return response($result[0], $result[1]);
     }
 
@@ -80,16 +80,15 @@ class UserController extends Controller
     }
 
     /**
-    * Update the specified resource in storage.
-    *
-    * @param UpdateUserRequest $request
-    *
-    *
-    * @return    Response
-    */
-    public function update(UpdateUserRequest $request): Response
+     * Update the specified resource in storage.
+     *
+     * @param UpdateUserRequest $request
+     *
+     * @param int $id
+     * @return    Response
+     */
+    public function update(UpdateUserRequest $request, int $id): Response
     {
-        $id = Auth::id();
         $result = $this->userService->update($request->validated(), $id);
         return response([
             'status'  => true,
@@ -110,7 +109,7 @@ class UserController extends Controller
         return response($result[0], $result[1]);
     }
 
-    public function getUser()
+    public function getAuthUser()
     {
         $result = $this->userService->show(Auth::id());
         return response([
@@ -118,7 +117,15 @@ class UserController extends Controller
             'data' => $result[0]
         ], $result[1]);
     }
-
+    public function updateAuthUser(UpdateUserRequest $request)
+    {
+        $id = Auth::id();
+        $result = $this->userService->update($request->validated(), $id);
+        return response([
+            'status'  => true,
+            'message' => OPERATION_SUCCESSFUL
+        ], $result[1]);
+    }
     public function changePassword(ChangePasswordRequest $request): JsonResponse
     {
         $result = $this->userService->changePassword($request->validated());

@@ -28,9 +28,10 @@ class CreateProductRequest extends FormRequest
         return [
             ProductContract::CATEGORY_ID => ['integer'],
             ProductContract::TITLE       => ['string', 'required'],
+            ProductContract::IMAGES      => [],
             ProductContract::DESCRIPTION => ['string', 'required'],
-            ProductContract::PRICE       => ['string', 'integer'],
-            ProductContract::OLD_PRICE   => ['string', 'integer'],
+            ProductContract::PRICE       => ['integer'],
+            ProductContract::OLD_PRICE   => ['integer'],
             ProductContract::IS_HIT      => ['boolean', 'required'],
             ProductContract::IS_LATEST   => ['boolean', 'required']
         ];

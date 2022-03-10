@@ -13,3 +13,5 @@ const IN_PROCESSING           = 'В обработке';
 const DELIVERY_IN_PROGRESS    = 'Доставляется';
 const DELIVERED               = 'Доставлен';
 const PASSWORD_INCORRECT      = 'Пароли не совпадают';
+const CATEGORIES              = 'categories';
+const PRODUCTS                = 'products';

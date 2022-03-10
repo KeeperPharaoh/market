@@ -23,7 +23,6 @@ class CategoryCollection extends ResourceCollection
                 ID    => $item->id,
                 CategoryContract::TITLE => $item->title,
                 CategoryContract::IMAGE => env('APP_URL') . '/storage/' . $item->image
-
             ];
         });
     }
